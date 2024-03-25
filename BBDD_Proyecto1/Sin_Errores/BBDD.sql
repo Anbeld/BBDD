@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      PostgreSQL 9.x                               */
-/* Created on:     24/03/2024 8:38:20 p.�m.                     */
+/* Created on:     25/03/2024 5:39:58 p.�m.                     */
 /*==============================================================*/
 
 
@@ -9,7 +9,8 @@
 /*==============================================================*/
 create table DEPARTAMENTO (
    DEPARTAMENTO_ID      SERIAL               not null,
-   NOMBRE_DEPARTAMENTO  CHAR(30)             not null unique,
+   PAIS_ID              INT4                 not null,
+   NOMBRE_DEPARTAMENTO  CHAR(30)             not null,
    constraint PK_DEPARTAMENTO primary key (DEPARTAMENTO_ID)
 );
 
@@ -18,6 +19,9 @@ comment on table DEPARTAMENTO is
 
 comment on column DEPARTAMENTO.DEPARTAMENTO_ID is
 'identificador unico del departamento.';
+
+comment on column DEPARTAMENTO.PAIS_ID is
+'identificador unico para la entidad pais.';
 
 comment on column DEPARTAMENTO.NOMBRE_DEPARTAMENTO is
 'nombre del departamento.';
@@ -46,12 +50,13 @@ comment on column DOCUMENTO_ACREDITACION.TIPO_DOCUMENTO_ACREDITACION_ID is
 'identificador del tipo de documento de acreditacion del matrimonio';
 
 
+
 /*==============================================================*/
 /* Table: FACTOR_RH_RECIEN_NACIDO                               */
 /*==============================================================*/
 create table FACTOR_RH_RECIEN_NACIDO (
    FACTOR_RH_ID         SERIAL               not null,
-   FACTOR_RH            VARCHAR(1)           not null unique,
+   FACTOR_RH            VARCHAR(1)           not null,
    constraint PK_FACTOR_RH_RECIEN_NACIDO primary key (FACTOR_RH_ID)
 );
 
@@ -65,14 +70,13 @@ comment on column FACTOR_RH_RECIEN_NACIDO.FACTOR_RH is
 'este atributo hace referencia al RH del recien nacido, el cual puede ser positivo o negativo.';
 
 
-
 /*==============================================================*/
 /* Table: FIRMA_PERSONA                                         */
 /*==============================================================*/
 create table FIRMA_PERSONA (
    FIRMA_ID             SERIAL               not null,
-   PERSONA_ID           INT4                 not null unique,
-   URL_FIRMA_PERSONA    VARCHAR(300)         not null unique,
+   PERSONA_ID           INT4                 not null,
+   URL_FIRMA_PERSONA    VARCHAR(300)         not null,
    constraint PK_FIRMA_PERSONA primary key (FIRMA_ID)
 );
 
@@ -94,7 +98,7 @@ comment on column FIRMA_PERSONA.URL_FIRMA_PERSONA is
 /*==============================================================*/
 create table GRUPO_SANGUINEO_RECIEN_NACIDO (
    GRUPO_SANGUINEO_ID   SERIAL               not null,
-   GRUPO_SANGUINEO      VARCHAR(2)           not null unique,
+   GRUPO_SANGUINEO      VARCHAR(2)           not null,
    constraint PK_GRUPO_SANGUINEO_RECIEN_NACI primary key (GRUPO_SANGUINEO_ID)
 );
 
@@ -114,7 +118,7 @@ comment on column GRUPO_SANGUINEO_RECIEN_NACIDO.GRUPO_SANGUINEO is
 create table HIJO_LEGITIMADO (
    HIJOS_LEGITIMADO_ID  SERIAL               not null,
    REGISTRO_CIVIL_MATRINOMIO_ID INT4                 not null,
-   PERSONA_ID           INT4                 not null unique,
+   PERSONA_ID           INT4                 not null,
    constraint PK_HIJO_LEGITIMADO primary key (HIJOS_LEGITIMADO_ID)
 );
 
@@ -132,52 +136,28 @@ comment on column HIJO_LEGITIMADO.PERSONA_ID is
 
 
 
-/*==============================================================*/
-/* Table: LUGAR                                                 */
-/*==============================================================*/
-create table LUGAR (
-   LUGAR_ID             SERIAL               not null,
-   DEPARTAMENTO_ID      INT4                 not null,
-   PAIS_ID              INT4                 not null,
-   MUNICIPIO_ID         INT4                 not null unique,
-   constraint PK_LUGAR primary key (LUGAR_ID)
-);
-
-comment on table LUGAR is
-'Contiene registros que son una combinaci�n de pais, departamento y municipio, esta combinacion es usada en diferentes entidades para especificar lugares de expedicion, nacimiento, celebracion, etc.';
-
-comment on column LUGAR.LUGAR_ID is
-'identificador unico para la entidad lugar.';
-
-comment on column LUGAR.DEPARTAMENTO_ID is
-'identificador unico del departamento.';
-
-comment on column LUGAR.PAIS_ID is
-'identificador unico para la entidad pais.';
-
-comment on column LUGAR.MUNICIPIO_ID is
-'identificador unico del municipio.';
-
-
 
 /*==============================================================*/
-/* Table: MUNICIPIO                                             */
+/* Table: MUNICIPO                                              */
 /*==============================================================*/
-create table MUNICIPIO (
+create table MUNICIPO (
    MUNICIPIO_ID         SERIAL               not null,
-   NOMBRE_MUNICIPIO     VARCHAR(50)          not null unique,
-   constraint PK_MUNICIPIO primary key (MUNICIPIO_ID)
+   DEPARTAMENTO_ID      INT4                 not null,
+   MUNICIPIO            VARCHAR(50)          not null,
+   constraint PK_MUNICIPO primary key (MUNICIPIO_ID)
 );
 
-comment on table MUNICIPIO is
+comment on table MUNICIPO is
 'Almacena los posibles valores de municipios en lo que puede ocurrir un evento.';
 
-comment on column MUNICIPIO.MUNICIPIO_ID is
+comment on column MUNICIPO.MUNICIPIO_ID is
 'identificador unico del municipio.';
 
-comment on column MUNICIPIO.NOMBRE_MUNICIPIO is
-'nombre del municipio.';
+comment on column MUNICIPO.DEPARTAMENTO_ID is
+'identificador unico del departamento.';
 
+comment on column MUNICIPO.MUNICIPIO is
+'nombre del municipio';
 
 
 /*==============================================================*/
@@ -185,7 +165,7 @@ comment on column MUNICIPIO.NOMBRE_MUNICIPIO is
 /*==============================================================*/
 create table NACIONALIDAD_PERSONA (
    NACIONALIDAD_ID      SERIAL               not null,
-   NACIONALIDAD         VARCHAR(50)          not null unique,
+   NACIONALIDAD         VARCHAR(50)          not null,
    constraint PK_NACIONALIDAD_PERSONA primary key (NACIONALIDAD_ID)
 );
 
@@ -200,15 +180,14 @@ comment on column NACIONALIDAD_PERSONA.NACIONALIDAD is
 'gentilicio del pais de nacimiento de la persona.';
 
 
-
 /*==============================================================*/
 /* Table: OFICINA_EXPEDICION                                    */
 /*==============================================================*/
 create table OFICINA_EXPEDICION (
    OFICINA_EXPEDICION_ID SERIAL               not null,
    TIPO_OFICINA_EXPEDICION_ID INT4                 not null,
-   LUGAR_ID             INT4                 not null,
-   CODIGO_OE            INT4                 not null unique,
+   MUNICIPIO_ID         INT4                 not null,
+   CODIGO_OE            INT4                 not null,
    NUMERO_NOTARIA       INT4                 null,
    constraint PK_OFICINA_EXPEDICION primary key (OFICINA_EXPEDICION_ID)
 );
@@ -222,8 +201,8 @@ comment on column OFICINA_EXPEDICION.OFICINA_EXPEDICION_ID is
 comment on column OFICINA_EXPEDICION.TIPO_OFICINA_EXPEDICION_ID is
 'identificador unico del tipo de oficina de expedicion.';
 
-comment on column OFICINA_EXPEDICION.LUGAR_ID is
-'identificador unico para la entidad lugar.';
+comment on column OFICINA_EXPEDICION.MUNICIPIO_ID is
+'identificador unico del municipio.';
 
 comment on column OFICINA_EXPEDICION.CODIGO_OE is
 'codigo unico de identificacion de la oficina.';
@@ -238,7 +217,7 @@ comment on column OFICINA_EXPEDICION.NUMERO_NOTARIA is
 /*==============================================================*/
 create table PAIS (
    PAIS_ID              SERIAL               not null,
-   NOMBRE_PAIS          VARCHAR(50)          not null unique,
+   NOMBRE_PAIS          VARCHAR(50)          not null,
    constraint PK_PAIS primary key (PAIS_ID)
 );
 
@@ -260,7 +239,7 @@ create table PERSONA (
    PERSONA_ID           SERIAL               not null,
    TIPO_DOCUMENTO_ID    INT4                 not null,
    NACIONALIDAD_ID      INT4                 null,
-   NUIP                 INT4                 not null unique,
+   NUIP                 INT4                 not null,
    NOMBRES              CHAR(40)             not null,
    APELLIDOS            CHAR(40)             not null,
    constraint PK_PERSONA primary key (PERSONA_ID)
@@ -318,8 +297,6 @@ comment on column PERSONA_RCM.REGISTRO_CIVIL_MATRINOMIO_ID is
 'identificador unico para la entidad registro civil de matriminio';
 
 
-
-
 /*==============================================================*/
 /* Table: PERSONA_RCN                                           */
 /*==============================================================*/
@@ -347,14 +324,13 @@ comment on column PERSONA_RCN.PERSONA_ID is
 'identificador unico de la persona involucrada en la creacion del registro civil.';
 
 
-
 /*==============================================================*/
 /* Table: REGISTRO_CIVIL                                        */
 /*==============================================================*/
 create table REGISTRO_CIVIL (
    REGISTRO_CIVIL_ID    SERIAL               not null,
    OFICINA_EXPEDICION_ID INT4                 not null,
-   INDICATIVO_SERIAL_RC INT4                 not null unique,
+   INDICATIVO_SERIAL_RC INT4                 not null,
    FECHA_EXPEDICION     DATE                 not null,
    constraint PK_REGISTRO_CIVIL primary key (REGISTRO_CIVIL_ID)
 );
@@ -382,13 +358,13 @@ comment on column REGISTRO_CIVIL.FECHA_EXPEDICION is
 create table REGISTRO_CIVIL_MATRIMONIO (
    REGISTRO_CIVIL_MATRINOMIO_ID SERIAL               not null,
    TIPO_MATRIMONIO_ID   INT4                 not null,
-   LUGAR_ID             INT4                 not null,
-   REGISTRO_CIVIL_ID    INT4                 not null unique,
-   DOCUMENTO_ACREDITACION_ID INT4                 not null unique,
+   MUNICIPIO_ID         INT4                 not null,
+   REGISTRO_CIVIL_ID    INT4                 not null,
+   DOCUMENTO_ACREDITACION_ID INT4                 not null,
    OFICINA_EXPEDICION_ID INT4                 null,
    FECHA_CELEBRACION    DATE                 not null,
    FECHA_OTORGAMIENTO_ESCRITURA_CA DATE                 null,
-   NUMERO_ESCRITURA_CAPITULACIONES INT4                 null unique,
+   NUMERO_ESCRITURA_CAPITULACIONES INT4                 null,
    constraint PK_REGISTRO_CIVIL_MATRIMONIO primary key (REGISTRO_CIVIL_MATRINOMIO_ID)
 );
 
@@ -401,8 +377,8 @@ comment on column REGISTRO_CIVIL_MATRIMONIO.REGISTRO_CIVIL_MATRINOMIO_ID is
 comment on column REGISTRO_CIVIL_MATRIMONIO.TIPO_MATRIMONIO_ID is
 'identificador unico de la entidad tipo matrinomio.';
 
-comment on column REGISTRO_CIVIL_MATRIMONIO.LUGAR_ID is
-'identificador unico para la entidad lugar.';
+comment on column REGISTRO_CIVIL_MATRIMONIO.MUNICIPIO_ID is
+'identificador unico del municipio.';
 
 comment on column REGISTRO_CIVIL_MATRIMONIO.REGISTRO_CIVIL_ID is
 'identificador unico para la entidad Registro Civil.';
@@ -424,7 +400,6 @@ comment on column REGISTRO_CIVIL_MATRIMONIO.NUMERO_ESCRITURA_CAPITULACIONES is
 
 
 
-
 /*==============================================================*/
 /* Table: REGISTRO_CIVIL_NACIMIENTO                             */
 /*==============================================================*/
@@ -432,10 +407,10 @@ create table REGISTRO_CIVIL_NACIMIENTO (
    REGISTRO_CIVIL_NACIMIENTO_ID SERIAL               not null,
    GRUPO_SANGUINEO_ID   INT4                 not null,
    SEXO_ID              INT4                 not null,
-   LUGAR_ID             INT4                 not null,
-   REGISTRO_CIVIL_ID    INT4                 not null unique,
+   MUNICIPIO_ID         INT4                 not null,
+   REGISTRO_CIVIL_ID    INT4                 not null,
    FACTOR_RH_ID         INT4                 not null,
-   NACIDO_VIVO          VARCHAR(12)          not null unique,
+   NACIDO_VIVO          VARCHAR(12)          not null,
    FECHA_DE_NACIMIENTO  DATE                 not null,
    NOTAS                VARCHAR(1000)        null,
    constraint PK_REGISTRO_CIVIL_NACIMIENTO primary key (REGISTRO_CIVIL_NACIMIENTO_ID)
@@ -453,8 +428,8 @@ comment on column REGISTRO_CIVIL_NACIMIENTO.GRUPO_SANGUINEO_ID is
 comment on column REGISTRO_CIVIL_NACIMIENTO.SEXO_ID is
 'identificador unico para la entidad sexo.';
 
-comment on column REGISTRO_CIVIL_NACIMIENTO.LUGAR_ID is
-'identificador unico para la entidad lugar.';
+comment on column REGISTRO_CIVIL_NACIMIENTO.MUNICIPIO_ID is
+'identificador unico del municipio.';
 
 comment on column REGISTRO_CIVIL_NACIMIENTO.REGISTRO_CIVIL_ID is
 'identificador unico para la entidad Registro Civil.';
@@ -473,13 +448,12 @@ comment on column REGISTRO_CIVIL_NACIMIENTO.NOTAS is
 
 
 
-
 /*==============================================================*/
 /* Table: ROL_PERSONA_RCM                                       */
 /*==============================================================*/
 create table ROL_PERSONA_RCM (
    ROL_PERSONA_RCM_ID   SERIAL               not null,
-   ROL_PERSONA_RCM      VARCHAR(50)          not null unique,
+   ROL_PERSONA_RCM      VARCHAR(50)          not null,
    constraint PK_ROL_PERSONA_RCM primary key (ROL_PERSONA_RCM_ID)
 );
 
@@ -493,13 +467,12 @@ comment on column ROL_PERSONA_RCM.ROL_PERSONA_RCM is
 'rol que caracteriza a la persona en el registro civil de matrimonio.';
 
 
-
 /*==============================================================*/
 /* Table: ROL_PERSONA_RCN                                       */
 /*==============================================================*/
 create table ROL_PERSONA_RCN (
    ROL_PERSONA_RCN_ID   SERIAL               not null,
-   ROL_PERSONA_RCN      VARCHAR(50)          not null unique,
+   ROL_PERSONA_RCN      VARCHAR(50)          not null,
    constraint PK_ROL_PERSONA_RCN primary key (ROL_PERSONA_RCN_ID)
 );
 
@@ -513,13 +486,12 @@ comment on column ROL_PERSONA_RCN.ROL_PERSONA_RCN is
 'rol que caracteriza a la persona en el registro civil de nacimiento.';
 
 
-
 /*==============================================================*/
 /* Table: SEXO_RECIEN_NACIDO                                    */
 /*==============================================================*/
 create table SEXO_RECIEN_NACIDO (
    SEXO_ID              SERIAL               not null,
-   SEXO                 VARCHAR(1)           not null unique,
+   SEXO                 VARCHAR(1)           not null,
    constraint PK_SEXO_RECIEN_NACIDO primary key (SEXO_ID)
 );
 
@@ -539,7 +511,7 @@ comment on column SEXO_RECIEN_NACIDO.SEXO is
 /*==============================================================*/
 create table TIPO_DOCUMENTO (
    TIPO_DOCUMENTO_ID    SERIAL               not null,
-   TIPO_DOCUMENTO       VARCHAR(50)          not null unique,
+   TIPO_DOCUMENTO       VARCHAR(50)          not null,
    constraint PK_TIPO_DOCUMENTO primary key (TIPO_DOCUMENTO_ID)
 );
 
@@ -559,7 +531,7 @@ comment on column TIPO_DOCUMENTO.TIPO_DOCUMENTO is
 /*==============================================================*/
 create table TIPO_DOCUMENTO_ACREDITACION (
    TIPO_DOCUMENTO_ACREDITACION_ID SERIAL               not null,
-   TIPO_DOCUMENTO_ACREDITACION VARCHAR(30)          not null unique,
+   TIPO_DOCUMENTO_ACREDITACION VARCHAR(30)          not null,
    constraint PK_TIPO_DOCUMENTO_ACREDITACION primary key (TIPO_DOCUMENTO_ACREDITACION_ID)
 );
 
@@ -580,7 +552,7 @@ comment on column TIPO_DOCUMENTO_ACREDITACION.TIPO_DOCUMENTO_ACREDITACION is
 /*==============================================================*/
 create table TIPO_MATRIMONIO (
    TIPO_MATRIMONIO_ID   SERIAL               not null,
-   TIPO_MATRIMINIO      VARCHAR(25)          not null unique,
+   TIPO_MATRIMINIO      VARCHAR(25)          not null,
    constraint PK_TIPO_MATRIMONIO primary key (TIPO_MATRIMONIO_ID)
 );
 
@@ -594,13 +566,12 @@ comment on column TIPO_MATRIMONIO.TIPO_MATRIMINIO is
 'tipo de matrimonio por el que se llevo a cabo el proceso, puede ser civil o religioso.';
 
 
-
 /*==============================================================*/
 /* Table: TIPO_OFICINA_EXPEDICION                               */
 /*==============================================================*/
 create table TIPO_OFICINA_EXPEDICION (
    TIPO_OFICINA_EXPEDICION_ID SERIAL               not null,
-   TIPO_OFICINA_EXPEDICION VARCHAR(25)          not null unique,
+   TIPO_OFICINA_EXPEDICION VARCHAR(25)          not null,
    constraint PK_TIPO_OFICINA_EXPEDICION primary key (TIPO_OFICINA_EXPEDICION_ID)
 );
 
@@ -614,6 +585,11 @@ comment on column TIPO_OFICINA_EXPEDICION.TIPO_OFICINA_EXPEDICION is
 'tipo de la oficina de expedicion del registro civil o documento de acreditacion (RCM).';
 
 
+
+alter table DEPARTAMENTO
+   add constraint FK_DEPARTAM_DEPARTAME_PAIS foreign key (PAIS_ID)
+      references PAIS (PAIS_ID)
+      on delete restrict on update restrict;
 
 alter table DOCUMENTO_ACREDITACION
    add constraint FK_DOCUMENT_DOCUMENTO_OFICINA_ foreign key (OFICINA_EXPEDICION_ID)
@@ -640,24 +616,14 @@ alter table HIJO_LEGITIMADO
       references REGISTRO_CIVIL_MATRIMONIO (REGISTRO_CIVIL_MATRINOMIO_ID)
       on delete restrict on update restrict;
 
-alter table LUGAR
-   add constraint FK_LUGAR_LUGAR_DEP_DEPARTAM foreign key (DEPARTAMENTO_ID)
+alter table MUNICIPO
+   add constraint FK_MUNICIPO_MUNICIPIO_DEPARTAM foreign key (DEPARTAMENTO_ID)
       references DEPARTAMENTO (DEPARTAMENTO_ID)
       on delete restrict on update restrict;
 
-alter table LUGAR
-   add constraint FK_LUGAR_LUGAR___M_MUNICIPI foreign key (MUNICIPIO_ID)
-      references MUNICIPIO (MUNICIPIO_ID)
-      on delete restrict on update restrict;
-
-alter table LUGAR
-   add constraint FK_LUGAR_LUGAR___P_PAIS foreign key (PAIS_ID)
-      references PAIS (PAIS_ID)
-      on delete restrict on update restrict;
-
 alter table OFICINA_EXPEDICION
-   add constraint FK_OFICINA__LUGAR___O_LUGAR foreign key (LUGAR_ID)
-      references LUGAR (LUGAR_ID)
+   add constraint FK_OFICINA__MUNICIPIO_MUNICIPO foreign key (MUNICIPIO_ID)
+      references MUNICIPO (MUNICIPIO_ID)
       on delete restrict on update restrict;
 
 alter table OFICINA_EXPEDICION
@@ -716,8 +682,8 @@ alter table REGISTRO_CIVIL_MATRIMONIO
       on delete restrict on update restrict;
 
 alter table REGISTRO_CIVIL_MATRIMONIO
-   add constraint FK_REGISTRO_REGISTRO__LUGAR foreign key (LUGAR_ID)
-      references LUGAR (LUGAR_ID)
+   add constraint FK_REGISTRO_REGISTRO__MUNICIPO foreign key (MUNICIPIO_ID)
+      references MUNICIPO (MUNICIPIO_ID)
       on delete restrict on update restrict;
 
 alter table REGISTRO_CIVIL_MATRIMONIO
@@ -746,8 +712,8 @@ alter table REGISTRO_CIVIL_NACIMIENTO
       on delete restrict on update restrict;
 
 alter table REGISTRO_CIVIL_NACIMIENTO
-   add constraint FK_REGISTRO_REGISTRO__LUGAR foreign key (LUGAR_ID)
-      references LUGAR (LUGAR_ID)
+   add constraint FK_REGISTRO_REGISTRO__MUNICIPO foreign key (MUNICIPIO_ID)
+      references MUNICIPO (MUNICIPIO_ID)
       on delete restrict on update restrict;
 
 alter table REGISTRO_CIVIL_NACIMIENTO
