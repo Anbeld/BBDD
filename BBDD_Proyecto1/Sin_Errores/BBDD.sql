@@ -238,11 +238,13 @@ comment on column PAIS.NOMBRE_PAIS is
 create table PERSONA (
    PERSONA_ID           SERIAL               not null,
    TIPO_DOCUMENTO_ID    INT4                 not null,
+   NUMERO_DOCUMENTO     INT4                 not null,
    NACIONALIDAD_ID      INT4                 null,
    NUIP                 INT4                 not null unique,
    NOMBRES              CHAR(40)             not null,
    APELLIDOS            CHAR(40)             not null,
    constraint PK_PERSONA primary key (PERSONA_ID)
+   CONSTRAINT UQ_NUMERO_TIPO_DOCUMENTO UNIQUE (NUMERO_DOCUMENTO, TIPO_DOCUMENTO_ID)
 );
 
 comment on table PERSONA is
@@ -254,6 +256,9 @@ comment on column PERSONA.PERSONA_ID is
 
 comment on column PERSONA.TIPO_DOCUMENTO_ID is
 'identificador unico para el tipo de documento.';
+
+comment on column PERSONA.NUMERO_DOCUMENTO is
+'numero de documento de identidad de la persona.';
 
 comment on column PERSONA.NACIONALIDAD_ID is
 'identificador unico para la entidad nacionalidad.
