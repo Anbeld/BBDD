@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      PostgreSQL 9.x                               */
-/* Created on:     24/03/2024 3:54:58 p.�m.                     */
+/* Created on:     24/03/2024 8:38:20 p.�m.                     */
 /*==============================================================*/
 
 
@@ -22,18 +22,13 @@ comment on column DEPARTAMENTO.DEPARTAMENTO_ID is
 comment on column DEPARTAMENTO.NOMBRE_DEPARTAMENTO is
 'nombre del departamento.';
 
-/*==============================================================*/
-/* Index: DEPARTAMENTO_PK                                       */
-/*==============================================================*/
-create unique index DEPARTAMENTO_PK on DEPARTAMENTO (
-DEPARTAMENTO_ID
-);
 
 /*==============================================================*/
 /* Table: DOCUMENTO_ACREDITACION                                */
 /*==============================================================*/
 create table DOCUMENTO_ACREDITACION (
    DOCUMENTO_ACREDITACION_ID SERIAL               not null,
+   OFICINA_EXPEDICION_ID INT4                 not null,
    TIPO_DOCUMENTO_ACREDITACION_ID INT4                 not null,
    constraint PK_DOCUMENTO_ACREDITACION primary key (DOCUMENTO_ACREDITACION_ID)
 );
@@ -44,22 +39,12 @@ comment on table DOCUMENTO_ACREDITACION is
 comment on column DOCUMENTO_ACREDITACION.DOCUMENTO_ACREDITACION_ID is
 'identificador unico de la entidad documento de acreditacion.';
 
+comment on column DOCUMENTO_ACREDITACION.OFICINA_EXPEDICION_ID is
+'identificador unico para la entidad Oficina de Expedicion.';
+
 comment on column DOCUMENTO_ACREDITACION.TIPO_DOCUMENTO_ACREDITACION_ID is
 'identificador del tipo de documento de acreditacion del matrimonio';
 
-/*==============================================================*/
-/* Index: DOCUMENTO_ACREDITACION_PK                             */
-/*==============================================================*/
-create unique index DOCUMENTO_ACREDITACION_PK on DOCUMENTO_ACREDITACION (
-DOCUMENTO_ACREDITACION_ID
-);
-
-/*==============================================================*/
-/* Index: DOCUMETO_ACREDITACION___TIPO_DO                       */
-/*==============================================================*/
-create  index DOCUMETO_ACREDITACION___TIPO_DO on DOCUMENTO_ACREDITACION (
-TIPO_DOCUMENTO_ACREDITACION_ID
-);
 
 /*==============================================================*/
 /* Table: FACTOR_RH_RECIEN_NACIDO                               */
@@ -79,12 +64,7 @@ comment on column FACTOR_RH_RECIEN_NACIDO.FACTOR_RH_ID is
 comment on column FACTOR_RH_RECIEN_NACIDO.FACTOR_RH is
 'este atributo hace referencia al RH del recien nacido, el cual puede ser positivo o negativo.';
 
-/*==============================================================*/
-/* Index: FACTOR_RH_RECIEN_NACIDO_PK                            */
-/*==============================================================*/
-create unique index FACTOR_RH_RECIEN_NACIDO_PK on FACTOR_RH_RECIEN_NACIDO (
-FACTOR_RH_ID
-);
+
 
 /*==============================================================*/
 /* Table: FIRMA_PERSONA                                         */
@@ -108,19 +88,6 @@ comment on column FIRMA_PERSONA.PERSONA_ID is
 comment on column FIRMA_PERSONA.URL_FIRMA_PERSONA is
 'url asociado a una firma digital almacena de manera externa.';
 
-/*==============================================================*/
-/* Index: FIRMA_PERSONA_PK                                      */
-/*==============================================================*/
-create unique index FIRMA_PERSONA_PK on FIRMA_PERSONA (
-FIRMA_ID
-);
-
-/*==============================================================*/
-/* Index: PERSONA_FIRMA_PERSONA_FK                              */
-/*==============================================================*/
-create  index PERSONA_FIRMA_PERSONA_FK on FIRMA_PERSONA (
-PERSONA_ID
-);
 
 /*==============================================================*/
 /* Table: GRUPO_SANGUINEO_RECIEN_NACIDO                         */
@@ -140,12 +107,6 @@ comment on column GRUPO_SANGUINEO_RECIEN_NACIDO.GRUPO_SANGUINEO_ID is
 comment on column GRUPO_SANGUINEO_RECIEN_NACIDO.GRUPO_SANGUINEO is
 'este atributo hace referencia al grupo sanguineo del recien nacido, el cual puede ser A, B, AB o O.';
 
-/*==============================================================*/
-/* Index: GRUPO_SANGUINEO_RECIEN_NACIDO_P                       */
-/*==============================================================*/
-create unique index GRUPO_SANGUINEO_RECIEN_NACIDO_P on GRUPO_SANGUINEO_RECIEN_NACIDO (
-GRUPO_SANGUINEO_ID
-);
 
 /*==============================================================*/
 /* Table: HIJO_LEGITIMADO                                       */
@@ -169,26 +130,7 @@ comment on column HIJO_LEGITIMADO.REGISTRO_CIVIL_MATRINOMIO_ID is
 comment on column HIJO_LEGITIMADO.PERSONA_ID is
 'identificador unico de la persona involucrada en la creacion del registro civil.';
 
-/*==============================================================*/
-/* Index: HIJO_LEGITIMADO_PK                                    */
-/*==============================================================*/
-create unique index HIJO_LEGITIMADO_PK on HIJO_LEGITIMADO (
-HIJOS_LEGITIMADO_ID
-);
 
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_MATRIMONIO___HIJ                       */
-/*==============================================================*/
-create  index REGISTRO_CIVIL_MATRIMONIO___HIJ on HIJO_LEGITIMADO (
-REGISTRO_CIVIL_MATRINOMIO_ID
-);
-
-/*==============================================================*/
-/* Index: PERSONA___HIJO_LEGITIMADO_FK                          */
-/*==============================================================*/
-create  index PERSONA___HIJO_LEGITIMADO_FK on HIJO_LEGITIMADO (
-PERSONA_ID
-);
 
 /*==============================================================*/
 /* Table: LUGAR                                                 */
@@ -202,7 +144,7 @@ create table LUGAR (
 );
 
 comment on table LUGAR is
-'Contiene registros que son una combinacion de pais, departamento y municipio, esta combinacion es usada en diferentes entidades para especificar lugares de expedicion, nacimiento, celebracion, etc.';
+'Contiene registros que son una combinaci�n de pais, departamento y municipio, esta combinacion es usada en diferentes entidades para especificar lugares de expedicion, nacimiento, celebracion, etc.';
 
 comment on column LUGAR.LUGAR_ID is
 'identificador unico para la entidad lugar.';
@@ -216,33 +158,7 @@ comment on column LUGAR.PAIS_ID is
 comment on column LUGAR.MUNICIPIO_ID is
 'identificador unico del municipio.';
 
-/*==============================================================*/
-/* Index: LUGAR_PK                                              */
-/*==============================================================*/
-create unique index LUGAR_PK on LUGAR (
-LUGAR_ID
-);
 
-/*==============================================================*/
-/* Index: LUGAR___PAIS_FK                                       */
-/*==============================================================*/
-create  index LUGAR___PAIS_FK on LUGAR (
-PAIS_ID
-);
-
-/*==============================================================*/
-/* Index: LUGAR___MUNICIPIO_FK                                  */
-/*==============================================================*/
-create  index LUGAR___MUNICIPIO_FK on LUGAR (
-MUNICIPIO_ID
-);
-
-/*==============================================================*/
-/* Index: LUGAR_DEPARTAMENTO_FK                                 */
-/*==============================================================*/
-create  index LUGAR_DEPARTAMENTO_FK on LUGAR (
-DEPARTAMENTO_ID
-);
 
 /*==============================================================*/
 /* Table: MUNICIPIO                                             */
@@ -262,12 +178,7 @@ comment on column MUNICIPIO.MUNICIPIO_ID is
 comment on column MUNICIPIO.NOMBRE_MUNICIPIO is
 'nombre del municipio.';
 
-/*==============================================================*/
-/* Index: MUNICIPIO_PK                                          */
-/*==============================================================*/
-create unique index MUNICIPIO_PK on MUNICIPIO (
-MUNICIPIO_ID
-);
+
 
 /*==============================================================*/
 /* Table: NACIONALIDAD_PERSONA                                  */
@@ -288,12 +199,7 @@ comment on column NACIONALIDAD_PERSONA.NACIONALIDAD_ID is
 comment on column NACIONALIDAD_PERSONA.NACIONALIDAD is
 'gentilicio del pais de nacimiento de la persona.';
 
-/*==============================================================*/
-/* Index: NACIONALIDAD_PERSONA_PK                               */
-/*==============================================================*/
-create unique index NACIONALIDAD_PERSONA_PK on NACIONALIDAD_PERSONA (
-NACIONALIDAD_ID
-);
+
 
 /*==============================================================*/
 /* Table: OFICINA_EXPEDICION                                    */
@@ -325,26 +231,7 @@ comment on column OFICINA_EXPEDICION.CODIGO_OE is
 comment on column OFICINA_EXPEDICION.NUMERO_NOTARIA is
 'numero especifico que se requiere si la oficina es una notaria, para el registro civil de nacimiento.';
 
-/*==============================================================*/
-/* Index: OFICINA_EXPEDICION_PK                                 */
-/*==============================================================*/
-create unique index OFICINA_EXPEDICION_PK on OFICINA_EXPEDICION (
-OFICINA_EXPEDICION_ID
-);
 
-/*==============================================================*/
-/* Index: LUGAR___OFICINA_EXPEDICION_FK                         */
-/*==============================================================*/
-create  index LUGAR___OFICINA_EXPEDICION_FK on OFICINA_EXPEDICION (
-LUGAR_ID
-);
-
-/*==============================================================*/
-/* Index: OFICINA_EXPEDICION___TIPO_OFICI                       */
-/*==============================================================*/
-create  index OFICINA_EXPEDICION___TIPO_OFICI on OFICINA_EXPEDICION (
-TIPO_OFICINA_EXPEDICION_ID
-);
 
 /*==============================================================*/
 /* Table: PAIS                                                  */
@@ -364,12 +251,7 @@ comment on column PAIS.PAIS_ID is
 comment on column PAIS.NOMBRE_PAIS is
 'nombre del pais.';
 
-/*==============================================================*/
-/* Index: PAIS_PK                                               */
-/*==============================================================*/
-create unique index PAIS_PK on PAIS (
-PAIS_ID
-);
+
 
 /*==============================================================*/
 /* Table: PERSONA                                               */
@@ -385,7 +267,7 @@ create table PERSONA (
 );
 
 comment on table PERSONA is
-'Almacena la informacion de todas las personas que se ven involucradas en la creacion de un registro civil. Contiene el NUIP, nombre, apellido y en caso de ser necesario la nacionalidad y la firma de la persona.
+'Almacena la informacion de todas las personas que se ven involucradas en la creaci�n de un registro civil. Contiene el NUIP, nombre, apellido y en caso de ser necesario la nacionalidad y la firma de la persona.
 ';
 
 comment on column PERSONA.PERSONA_ID is
@@ -407,26 +289,7 @@ comment on column PERSONA.NOMBRES is
 comment on column PERSONA.APELLIDOS is
 'apellidos de la persona involucrada en la creacion del registro civil.';
 
-/*==============================================================*/
-/* Index: PERSONA_PK                                            */
-/*==============================================================*/
-create unique index PERSONA_PK on PERSONA (
-PERSONA_ID
-);
 
-/*==============================================================*/
-/* Index: PERSONA___NACIONALIDAD_PERSONA_                       */
-/*==============================================================*/
-create  index PERSONA___NACIONALIDAD_PERSONA_ on PERSONA (
-NACIONALIDAD_ID
-);
-
-/*==============================================================*/
-/* Index: PERSONA_TIPO_DOCUMENTO_FK                             */
-/*==============================================================*/
-create  index PERSONA_TIPO_DOCUMENTO_FK on PERSONA (
-TIPO_DOCUMENTO_ID
-);
 
 /*==============================================================*/
 /* Table: PERSONA_RCM                                           */
@@ -454,33 +317,8 @@ comment on column PERSONA_RCM.PERSONA_ID is
 comment on column PERSONA_RCM.REGISTRO_CIVIL_MATRINOMIO_ID is
 'identificador unico para la entidad registro civil de matriminio';
 
-/*==============================================================*/
-/* Index: PERSONA_RCM_PK                                        */
-/*==============================================================*/
-create unique index PERSONA_RCM_PK on PERSONA_RCM (
-PERSONA_RCM_ID
-);
 
-/*==============================================================*/
-/* Index: PERSONA_RCM___ROL_PERSONA_RCM_F                       */
-/*==============================================================*/
-create  index PERSONA_RCM___ROL_PERSONA_RCM_F on PERSONA_RCM (
-ROL_PERSONA_RCM_ID
-);
 
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_MATRIMONIO___PER                       */
-/*==============================================================*/
-create  index REGISTRO_CIVIL_MATRIMONIO___PER on PERSONA_RCM (
-REGISTRO_CIVIL_MATRINOMIO_ID
-);
-
-/*==============================================================*/
-/* Index: PERSONA___PERSONA_RCM_FK                              */
-/*==============================================================*/
-create  index PERSONA___PERSONA_RCM_FK on PERSONA_RCM (
-PERSONA_ID
-);
 
 /*==============================================================*/
 /* Table: PERSONA_RCN                                           */
@@ -508,33 +346,7 @@ comment on column PERSONA_RCN.REGISTRO_CIVIL_NACIMIENTO_ID is
 comment on column PERSONA_RCN.PERSONA_ID is
 'identificador unico de la persona involucrada en la creacion del registro civil.';
 
-/*==============================================================*/
-/* Index: PERSONA_RCN_PK                                        */
-/*==============================================================*/
-create unique index PERSONA_RCN_PK on PERSONA_RCN (
-PERSONA_RCN_ID
-);
 
-/*==============================================================*/
-/* Index: PERSONA_RCN___ROL_PERSONA_RCN_F                       */
-/*==============================================================*/
-create  index PERSONA_RCN___ROL_PERSONA_RCN_F on PERSONA_RCN (
-ROL_PERSONA_RCN_ID
-);
-
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_NACIMIENTO___PER                       */
-/*==============================================================*/
-create  index REGISTRO_CIVIL_NACIMIENTO___PER on PERSONA_RCN (
-REGISTRO_CIVIL_NACIMIENTO_ID
-);
-
-/*==============================================================*/
-/* Index: PERSONA___PERSONA_RCN_FK                              */
-/*==============================================================*/
-create  index PERSONA___PERSONA_RCN_FK on PERSONA_RCN (
-PERSONA_ID
-);
 
 /*==============================================================*/
 /* Table: REGISTRO_CIVIL                                        */
@@ -557,24 +369,12 @@ comment on column REGISTRO_CIVIL.OFICINA_EXPEDICION_ID is
 'identificador unico para la entidad Oficina de Expedicion.';
 
 comment on column REGISTRO_CIVIL.INDICATIVO_SERIAL_RC is
-'identifica de manera unica al registro civil que se esta diligenciando. Esta compuesto por 12 digitos numericos.';
+'identifica de manera unica al registro civil que se esta diligenciando. Esta compuesto por 12 d�gitos numericos.';
 
 comment on column REGISTRO_CIVIL.FECHA_EXPEDICION is
 'fecha de expedicion del registro civil de matrimonio.';
 
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_PK                                     */
-/*==============================================================*/
-create unique index REGISTRO_CIVIL_PK on REGISTRO_CIVIL (
-REGISTRO_CIVIL_ID
-);
 
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_NACIMIENTO___OFI                       */
-/*==============================================================*/
-create  index REGISTRO_CIVIL_NACIMIENTO___OFI on REGISTRO_CIVIL (
-OFICINA_EXPEDICION_ID
-);
 
 /*==============================================================*/
 /* Table: REGISTRO_CIVIL_MATRIMONIO                             */
@@ -586,7 +386,6 @@ create table REGISTRO_CIVIL_MATRIMONIO (
    REGISTRO_CIVIL_ID    INT4                 not null,
    DOCUMENTO_ACREDITACION_ID INT4                 not null,
    OFICINA_EXPEDICION_ID INT4                 null,
-   INDICATIVO_SERIAL_RCM3 INT4                 not null,
    FECHA_CELEBRACION    DATE                 not null,
    FECHA_OTORGAMIENTO_ESCRITURA_CA DATE                 null,
    NUMERO_ESCRITURA_CAPITULACIONES INT4                 null,
@@ -614,52 +413,17 @@ comment on column REGISTRO_CIVIL_MATRIMONIO.DOCUMENTO_ACREDITACION_ID is
 comment on column REGISTRO_CIVIL_MATRIMONIO.OFICINA_EXPEDICION_ID is
 'identificador unico para la entidad Oficina de Expedicion.';
 
-comment on column REGISTRO_CIVIL_MATRIMONIO.INDICATIVO_SERIAL_RCM3 is
-'codigo unico que identifica al registro civil.';
-
 comment on column REGISTRO_CIVIL_MATRIMONIO.FECHA_CELEBRACION is
 'se refiere a la fecha en la que se lleva a cabo un evento o ceremonia especifica, como puede ser un matrimonio, una celebracion religiosa, una conferencia, entre otros. Esta fecha representa el dia en el que se realiza el evento o la accion principal que se esta registrando.';
 
 comment on column REGISTRO_CIVIL_MATRIMONIO.FECHA_OTORGAMIENTO_ESCRITURA_CA is
-'indica la fecha en la cual se otorga la escritura de capitulaciones matrimoniales. Estas escrituras son documentos legales que establecen el regimen economico del matrimonio, definiendo los derechos y obligaciones de los conyuges en relacion con sus bienes durante el matrimonio y en caso de divorcio o fallecimiento.';
+'indica la fecha en la cual se otorga la escritura de capitulaciones matrimoniales. Estas escrituras son documentos legales que establecen el r�gimen economico del matrimonio, definiendo los derechos y obligaciones de los conyuges en relaci�n con sus bienes durante el matrimonio y en caso de divorcio o fallecimiento.';
 
 comment on column REGISTRO_CIVIL_MATRIMONIO.NUMERO_ESCRITURA_CAPITULACIONES is
 'indica el numero identificador asignado a la escritura de las capitulaciones matrimoniales.';
 
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_MATRIMONIO_PK                          */
-/*==============================================================*/
-create unique index REGISTRO_CIVIL_MATRIMONIO_PK on REGISTRO_CIVIL_MATRIMONIO (
-REGISTRO_CIVIL_MATRINOMIO_ID
-);
 
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_MATRIMONIO___TIP                       */
-/*==============================================================*/
-create  index REGISTRO_CIVIL_MATRIMONIO___TIP on REGISTRO_CIVIL_MATRIMONIO (
-TIPO_MATRIMONIO_ID
-);
 
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_MATRIMONIO___LUG                       */
-/*==============================================================*/
-create  index REGISTRO_CIVIL_MATRIMONIO___LUG on REGISTRO_CIVIL_MATRIMONIO (
-LUGAR_ID
-);
-
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_MATRIMONIO___DOC                       */
-/*==============================================================*/
-create  index REGISTRO_CIVIL_MATRIMONIO___DOC on REGISTRO_CIVIL_MATRIMONIO (
-DOCUMENTO_ACREDITACION_ID
-);
-
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_MATRIMONIO___OFI                       */
-/*==============================================================*/
-create  index REGISTRO_CIVIL_MATRIMONIO___OFI on REGISTRO_CIVIL_MATRIMONIO (
-OFICINA_EXPEDICION_ID
-);
 
 /*==============================================================*/
 /* Table: REGISTRO_CIVIL_NACIMIENTO                             */
@@ -671,7 +435,6 @@ create table REGISTRO_CIVIL_NACIMIENTO (
    LUGAR_ID             INT4                 not null,
    REGISTRO_CIVIL_ID    INT4                 not null,
    FACTOR_RH_ID         INT4                 not null,
-   INDICATIVO_SERIAL_RCN INT4                 not null,
    NACIDO_VIVO          VARCHAR(12)          not null,
    FECHA_DE_NACIMIENTO  DATE                 not null,
    NOTAS                VARCHAR(1000)        null,
@@ -699,9 +462,6 @@ comment on column REGISTRO_CIVIL_NACIMIENTO.REGISTRO_CIVIL_ID is
 comment on column REGISTRO_CIVIL_NACIMIENTO.FACTOR_RH_ID is
 'identificador unico para el factor RH del recien nacido.';
 
-comment on column REGISTRO_CIVIL_NACIMIENTO.INDICATIVO_SERIAL_RCN is
-'cdigo unico que identifica al registro civil.';
-
 comment on column REGISTRO_CIVIL_NACIMIENTO.NACIDO_VIVO is
 'suministra informacion basica acerca del recien nacido, confirmando que el bebe nacio vivo y ofreciendo un certificado valido de la relacion entre la criatura y su madre. ';
 
@@ -711,46 +471,15 @@ comment on column REGISTRO_CIVIL_NACIMIENTO.FECHA_DE_NACIMIENTO is
 comment on column REGISTRO_CIVIL_NACIMIENTO.NOTAS is
 'espacio para notas reservado para casos especiales en los que se necesite dejar constancia de una situacion.';
 
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_NACIMIENTO_PK                          */
-/*==============================================================*/
-create unique index REGISTRO_CIVIL_NACIMIENTO_PK on REGISTRO_CIVIL_NACIMIENTO (
-REGISTRO_CIVIL_NACIMIENTO_ID
-);
 
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_NACIMIENTO___LUG                       */
-/*==============================================================*/
-create  index REGISTRO_CIVIL_NACIMIENTO___LUG on REGISTRO_CIVIL_NACIMIENTO (
-LUGAR_ID
-);
 
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_NACIMIENTO___GRU                       */
-/*==============================================================*/
-create  index REGISTRO_CIVIL_NACIMIENTO___GRU on REGISTRO_CIVIL_NACIMIENTO (
-GRUPO_SANGUINEO_ID
-);
-
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_NACIMIENTO___SEX                       */
-/*==============================================================*/
-create  index REGISTRO_CIVIL_NACIMIENTO___SEX on REGISTRO_CIVIL_NACIMIENTO (
-SEXO_ID
-);
-
-/*==============================================================*/
-/* Index: REGISTRO_CIVIL_NACIMIENTO___FAC                       */
-/*==============================================================*/
-create  index REGISTRO_CIVIL_NACIMIENTO___FAC on REGISTRO_CIVIL_NACIMIENTO (
-FACTOR_RH_ID
-);
 
 /*==============================================================*/
 /* Table: ROL_PERSONA_RCM                                       */
 /*==============================================================*/
 create table ROL_PERSONA_RCM (
    ROL_PERSONA_RCM_ID   SERIAL               not null,
+   ROL_PERSONA_RCM      VARCHAR(50)          not null,
    constraint PK_ROL_PERSONA_RCM primary key (ROL_PERSONA_RCM_ID)
 );
 
@@ -760,33 +489,30 @@ comment on table ROL_PERSONA_RCM is
 comment on column ROL_PERSONA_RCM.ROL_PERSONA_RCM_ID is
 'identificador unico para la entidad rol persona.';
 
-/*==============================================================*/
-/* Index: ROL_PERSONA_RCM_PK                                    */
-/*==============================================================*/
-create unique index ROL_PERSONA_RCM_PK on ROL_PERSONA_RCM (
-ROL_PERSONA_RCM_ID
-);
+comment on column ROL_PERSONA_RCM.ROL_PERSONA_RCM is
+'rol que caracteriza a la persona en el registro civil de matrimonio.';
+
+
 
 /*==============================================================*/
 /* Table: ROL_PERSONA_RCN                                       */
 /*==============================================================*/
 create table ROL_PERSONA_RCN (
    ROL_PERSONA_RCN_ID   SERIAL               not null,
+   ROL_PERSONA_RCN      VARCHAR(50)          not null,
    constraint PK_ROL_PERSONA_RCN primary key (ROL_PERSONA_RCN_ID)
 );
 
 comment on table ROL_PERSONA_RCN is
-'La entidad se utiliza para categorizar los distintos roles que pueden desempeñar las personas en el proceso de registro civil de nacimiento. ';
+'La entidad se utiliza para categorizar los distintos roles que pueden desempe�ar las personas en el proceso de registro civil de nacimiento. ';
 
 comment on column ROL_PERSONA_RCN.ROL_PERSONA_RCN_ID is
 'identificador unico para la entidad rol persona rcn.';
 
-/*==============================================================*/
-/* Index: ROL_PERSONA_RCN_PK                                    */
-/*==============================================================*/
-create unique index ROL_PERSONA_RCN_PK on ROL_PERSONA_RCN (
-ROL_PERSONA_RCN_ID
-);
+comment on column ROL_PERSONA_RCN.ROL_PERSONA_RCN is
+'rol que caracteriza a la persona en el registro civil de nacimiento.';
+
+
 
 /*==============================================================*/
 /* Table: SEXO_RECIEN_NACIDO                                    */
@@ -806,12 +532,7 @@ comment on column SEXO_RECIEN_NACIDO.SEXO_ID is
 comment on column SEXO_RECIEN_NACIDO.SEXO is
 'sexo del recien nacido, tiene dos posibles sexos: masculino y femenino.';
 
-/*==============================================================*/
-/* Index: SEXO_RECIEN_NACIDO_PK                                 */
-/*==============================================================*/
-create unique index SEXO_RECIEN_NACIDO_PK on SEXO_RECIEN_NACIDO (
-SEXO_ID
-);
+
 
 /*==============================================================*/
 /* Table: TIPO_DOCUMENTO                                        */
@@ -831,12 +552,7 @@ comment on column TIPO_DOCUMENTO.TIPO_DOCUMENTO_ID is
 comment on column TIPO_DOCUMENTO.TIPO_DOCUMENTO is
 'el tipo de documento puede ser cedula de ciudadania, cedula de extranjeria, pasaporte o tarjeta de identidad.';
 
-/*==============================================================*/
-/* Index: TIPO_DOCUMENTO_PK                                     */
-/*==============================================================*/
-create unique index TIPO_DOCUMENTO_PK on TIPO_DOCUMENTO (
-TIPO_DOCUMENTO_ID
-);
+
 
 /*==============================================================*/
 /* Table: TIPO_DOCUMENTO_ACREDITACION                           */
@@ -855,14 +571,9 @@ comment on column TIPO_DOCUMENTO_ACREDITACION.TIPO_DOCUMENTO_ACREDITACION_ID is
 'identificador del tipo de documento de acreditacion del matrimonio';
 
 comment on column TIPO_DOCUMENTO_ACREDITACION.TIPO_DOCUMENTO_ACREDITACION is
-'se refiere al tipo de documento utilizado para acreditar el matrimonio. En este contexto, puede ser de dos tipos: Acta Religiosa (se refiere al documento emitido por una autoridad religiosa que certifica la realizacion del matrimonio segun los ritos y ceremonias de una determinada religion) o escritura de protocolizacion (es un documento legal emitido por un notario publico que certifica el matrimonio y lo protocoliza oficialmente).';
+'se refiere al tipo de documento utilizado para acreditar el matrimonio. En este contexto, puede ser de dos tipos: Acta Religiosa (se refiere al documento emitido por una autoridad religiosa que certifica la realizaci�n del matrimonio seg�n los ritos y ceremonias de una determinada religi�n) o escritura de protocolizaci�n (es un documento legal emitido por un notario p�blico que certifica el matrimonio y lo protocoliza oficialmente).';
 
-/*==============================================================*/
-/* Index: TIPO_DOCUMENTO_ACREDITACION_PK                        */
-/*==============================================================*/
-create unique index TIPO_DOCUMENTO_ACREDITACION_PK on TIPO_DOCUMENTO_ACREDITACION (
-TIPO_DOCUMENTO_ACREDITACION_ID
-);
+
 
 /*==============================================================*/
 /* Table: TIPO_MATRIMONIO                                       */
@@ -882,12 +593,7 @@ comment on column TIPO_MATRIMONIO.TIPO_MATRIMONIO_ID is
 comment on column TIPO_MATRIMONIO.TIPO_MATRIMINIO is
 'tipo de matrimonio por el que se llevo a cabo el proceso, puede ser civil o religioso.';
 
-/*==============================================================*/
-/* Index: TIPO_MATRIMONIO_PK                                    */
-/*==============================================================*/
-create unique index TIPO_MATRIMONIO_PK on TIPO_MATRIMONIO (
-TIPO_MATRIMONIO_ID
-);
+
 
 /*==============================================================*/
 /* Table: TIPO_OFICINA_EXPEDICION                               */
@@ -907,12 +613,12 @@ comment on column TIPO_OFICINA_EXPEDICION.TIPO_OFICINA_EXPEDICION_ID is
 comment on column TIPO_OFICINA_EXPEDICION.TIPO_OFICINA_EXPEDICION is
 'tipo de la oficina de expedicion del registro civil o documento de acreditacion (RCM).';
 
-/*==============================================================*/
-/* Index: TIPO_OFICINA_EXPEDICION_PK                            */
-/*==============================================================*/
-create unique index TIPO_OFICINA_EXPEDICION_PK on TIPO_OFICINA_EXPEDICION (
-TIPO_OFICINA_EXPEDICION_ID
-);
+
+
+alter table DOCUMENTO_ACREDITACION
+   add constraint FK_DOCUMENT_DOCUMENTO_OFICINA_ foreign key (OFICINA_EXPEDICION_ID)
+      references OFICINA_EXPEDICION (OFICINA_EXPEDICION_ID)
+      on delete restrict on update restrict;
 
 alter table DOCUMENTO_ACREDITACION
    add constraint FK_DOCUMENT_DOCUMETO__TIPO_DOC foreign key (TIPO_DOCUMENTO_ACREDITACION_ID)
@@ -970,32 +676,32 @@ alter table PERSONA
       on delete restrict on update restrict;
 
 alter table PERSONA_RCM
-   add constraint FK_PERSONA__PERSONA_R_ROL_PERS foreign key (ROL_PERSONA_RCM_ID)
+   add constraint FK_PERSONA_RCM__PERSONA_R_ROL_PERS foreign key (ROL_PERSONA_RCM_ID)
       references ROL_PERSONA_RCM (ROL_PERSONA_RCM_ID)
       on delete restrict on update restrict;
 
 alter table PERSONA_RCM
-   add constraint FK_PERSONA__PERSONA___PERSONA foreign key (PERSONA_ID)
+   add constraint FK_PERSONA__RCM___PERSONA foreign key (PERSONA_ID)
       references PERSONA (PERSONA_ID)
       on delete restrict on update restrict;
 
 alter table PERSONA_RCM
-   add constraint FK_PERSONA__REGISTRO__REGISTRO foreign key (REGISTRO_CIVIL_MATRINOMIO_ID)
+   add constraint FK_PERSONA_RCM__REGISTRO__REGISTRO foreign key (REGISTRO_CIVIL_MATRINOMIO_ID)
       references REGISTRO_CIVIL_MATRIMONIO (REGISTRO_CIVIL_MATRINOMIO_ID)
       on delete restrict on update restrict;
 
 alter table PERSONA_RCN
-   add constraint FK_PERSONA__PERSONA_R_ROL_PERS foreign key (ROL_PERSONA_RCN_ID)
+   add constraint FK_PERSONA_RCN__PERSONA_R_ROL_PERS foreign key (ROL_PERSONA_RCN_ID)
       references ROL_PERSONA_RCN (ROL_PERSONA_RCN_ID)
       on delete restrict on update restrict;
 
 alter table PERSONA_RCN
-   add constraint FK_PERSONA__PERSONA___PERSONA foreign key (PERSONA_ID)
+   add constraint FK_PERSONA__RCN___PERSONA foreign key (PERSONA_ID)
       references PERSONA (PERSONA_ID)
       on delete restrict on update restrict;
 
 alter table PERSONA_RCN
-   add constraint FK_PERSONA__REGISTRO__REGISTRO foreign key (REGISTRO_CIVIL_NACIMIENTO_ID)
+   add constraint FK_PERSONA_RCN__REGISTRO__REGISTRO foreign key (REGISTRO_CIVIL_NACIMIENTO_ID)
       references REGISTRO_CIVIL_NACIMIENTO (REGISTRO_CIVIL_NACIMIENTO_ID)
       on delete restrict on update restrict;
 
@@ -1025,7 +731,7 @@ alter table REGISTRO_CIVIL_MATRIMONIO
       on delete restrict on update restrict;
 
 alter table REGISTRO_CIVIL_MATRIMONIO
-   add constraint FK_REGISTRO_REGISTRO__REGISTRO foreign key (REGISTRO_CIVIL_ID)
+   add constraint FK_REGISTRO_MAT__REGISTRO foreign key (REGISTRO_CIVIL_ID)
       references REGISTRO_CIVIL (REGISTRO_CIVIL_ID)
       on delete restrict on update restrict;
 
@@ -1050,7 +756,7 @@ alter table REGISTRO_CIVIL_NACIMIENTO
       on delete restrict on update restrict;
 
 alter table REGISTRO_CIVIL_NACIMIENTO
-   add constraint FK_REGISTRO_REGISTRO__REGISTRO foreign key (REGISTRO_CIVIL_ID)
+   add constraint FK_REGISTRO_NAC__REGISTRO foreign key (REGISTRO_CIVIL_ID)
       references REGISTRO_CIVIL (REGISTRO_CIVIL_ID)
       on delete restrict on update restrict;
 

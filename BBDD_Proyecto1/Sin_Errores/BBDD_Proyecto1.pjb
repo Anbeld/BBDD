@@ -583,7 +583,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:GradientFillMode>65</a:GradientFillMode>
 <a:CustomPictureType>4</a:CustomPictureType>
 <a:CustomTextMode>1</a:CustomTextMode>
-<a:CustomPictureID>EAFF3FD1-1CD5-4C37-862E-308232B1C3D4</a:CustomPictureID>
+<a:CustomPictureID>4AFDE668-91C7-4460-B90F-B716A7359334</a:CustomPictureID>
 <a:GradientEndColor>16777215</a:GradientEndColor>
 <a:KeepAspect>1</a:KeepAspect>
 <c:Object>
@@ -620,7 +620,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>PROYECTO1_BBDD</a:Code>
 <a:CreationDate>1711233252</a:CreationDate>
 <a:Creator>Acbel</a:Creator>
-<a:ModificationDate>1711316745</a:ModificationDate>
+<a:ModificationDate>1711322222</a:ModificationDate>
 <a:Modifier>secoe</a:Modifier>
 <a:Location>file:///%[PRJ_ROOT_DIR]%/Proyecto1_BBDD.cdm</a:Location>
 <a:Extension>cdm</a:Extension>
