@@ -10,7 +10,7 @@
 create table DEPARTAMENTO (
    DEPARTAMENTO_ID      SERIAL               not null,
    PAIS_ID              INT4                 not null,
-   NOMBRE_DEPARTAMENTO  CHAR(30)             not null,
+   NOMBRE_DEPARTAMENTO  CHAR(30)             not null unique,
    constraint PK_DEPARTAMENTO primary key (DEPARTAMENTO_ID)
 );
 
@@ -56,7 +56,7 @@ comment on column DOCUMENTO_ACREDITACION.TIPO_DOCUMENTO_ACREDITACION_ID is
 /*==============================================================*/
 create table FACTOR_RH_RECIEN_NACIDO (
    FACTOR_RH_ID         SERIAL               not null,
-   FACTOR_RH            VARCHAR(1)           not null,
+   FACTOR_RH            VARCHAR(1)           not null unique,
    constraint PK_FACTOR_RH_RECIEN_NACIDO primary key (FACTOR_RH_ID)
 );
 
@@ -75,8 +75,8 @@ comment on column FACTOR_RH_RECIEN_NACIDO.FACTOR_RH is
 /*==============================================================*/
 create table FIRMA_PERSONA (
    FIRMA_ID             SERIAL               not null,
-   PERSONA_ID           INT4                 not null,
-   URL_FIRMA_PERSONA    VARCHAR(300)         not null,
+   PERSONA_ID           INT4                 not null unique,
+   URL_FIRMA_PERSONA    VARCHAR(300)         not null unique,
    constraint PK_FIRMA_PERSONA primary key (FIRMA_ID)
 );
 
@@ -98,7 +98,7 @@ comment on column FIRMA_PERSONA.URL_FIRMA_PERSONA is
 /*==============================================================*/
 create table GRUPO_SANGUINEO_RECIEN_NACIDO (
    GRUPO_SANGUINEO_ID   SERIAL               not null,
-   GRUPO_SANGUINEO      VARCHAR(2)           not null,
+   GRUPO_SANGUINEO      VARCHAR(2)           not null unique,
    constraint PK_GRUPO_SANGUINEO_RECIEN_NACI primary key (GRUPO_SANGUINEO_ID)
 );
 
@@ -118,7 +118,7 @@ comment on column GRUPO_SANGUINEO_RECIEN_NACIDO.GRUPO_SANGUINEO is
 create table HIJO_LEGITIMADO (
    HIJOS_LEGITIMADO_ID  SERIAL               not null,
    REGISTRO_CIVIL_MATRINOMIO_ID INT4                 not null,
-   PERSONA_ID           INT4                 not null,
+   PERSONA_ID           INT4                 not null unique,
    constraint PK_HIJO_LEGITIMADO primary key (HIJOS_LEGITIMADO_ID)
 );
 
@@ -143,7 +143,7 @@ comment on column HIJO_LEGITIMADO.PERSONA_ID is
 create table MUNICIPO (
    MUNICIPIO_ID         SERIAL               not null,
    DEPARTAMENTO_ID      INT4                 not null,
-   MUNICIPIO            VARCHAR(50)          not null,
+   MUNICIPIO            VARCHAR(50)          not null unique,
    constraint PK_MUNICIPO primary key (MUNICIPIO_ID)
 );
 
@@ -165,7 +165,7 @@ comment on column MUNICIPO.MUNICIPIO is
 /*==============================================================*/
 create table NACIONALIDAD_PERSONA (
    NACIONALIDAD_ID      SERIAL               not null,
-   NACIONALIDAD         VARCHAR(50)          not null,
+   NACIONALIDAD         VARCHAR(50)          not null unique,
    constraint PK_NACIONALIDAD_PERSONA primary key (NACIONALIDAD_ID)
 );
 
@@ -187,7 +187,7 @@ create table OFICINA_EXPEDICION (
    OFICINA_EXPEDICION_ID SERIAL               not null,
    TIPO_OFICINA_EXPEDICION_ID INT4                 not null,
    MUNICIPIO_ID         INT4                 not null,
-   CODIGO_OE            INT4                 not null,
+   CODIGO_OE            INT4                 not null unique,
    NUMERO_NOTARIA       INT4                 null,
    constraint PK_OFICINA_EXPEDICION primary key (OFICINA_EXPEDICION_ID)
 );
@@ -217,7 +217,7 @@ comment on column OFICINA_EXPEDICION.NUMERO_NOTARIA is
 /*==============================================================*/
 create table PAIS (
    PAIS_ID              SERIAL               not null,
-   NOMBRE_PAIS          VARCHAR(50)          not null,
+   NOMBRE_PAIS          VARCHAR(50)          not null unique,
    constraint PK_PAIS primary key (PAIS_ID)
 );
 
@@ -239,7 +239,7 @@ create table PERSONA (
    PERSONA_ID           SERIAL               not null,
    TIPO_DOCUMENTO_ID    INT4                 not null,
    NACIONALIDAD_ID      INT4                 null,
-   NUIP                 INT4                 not null,
+   NUIP                 INT4                 not null unique,
    NOMBRES              CHAR(40)             not null,
    APELLIDOS            CHAR(40)             not null,
    constraint PK_PERSONA primary key (PERSONA_ID)
@@ -330,7 +330,7 @@ comment on column PERSONA_RCN.PERSONA_ID is
 create table REGISTRO_CIVIL (
    REGISTRO_CIVIL_ID    SERIAL               not null,
    OFICINA_EXPEDICION_ID INT4                 not null,
-   INDICATIVO_SERIAL_RC INT4                 not null,
+   INDICATIVO_SERIAL_RC INT4                 not null unique,
    FECHA_EXPEDICION     DATE                 not null,
    constraint PK_REGISTRO_CIVIL primary key (REGISTRO_CIVIL_ID)
 );
@@ -359,12 +359,12 @@ create table REGISTRO_CIVIL_MATRIMONIO (
    REGISTRO_CIVIL_MATRINOMIO_ID SERIAL               not null,
    TIPO_MATRIMONIO_ID   INT4                 not null,
    MUNICIPIO_ID         INT4                 not null,
-   REGISTRO_CIVIL_ID    INT4                 not null,
-   DOCUMENTO_ACREDITACION_ID INT4                 not null,
+   REGISTRO_CIVIL_ID    INT4                 not null unique,
+   DOCUMENTO_ACREDITACION_ID INT4                 not null unique,
    OFICINA_EXPEDICION_ID INT4                 null,
    FECHA_CELEBRACION    DATE                 not null,
    FECHA_OTORGAMIENTO_ESCRITURA_CA DATE                 null,
-   NUMERO_ESCRITURA_CAPITULACIONES INT4                 null,
+   NUMERO_ESCRITURA_CAPITULACIONES INT4                 null unique,
    constraint PK_REGISTRO_CIVIL_MATRIMONIO primary key (REGISTRO_CIVIL_MATRINOMIO_ID)
 );
 
@@ -408,9 +408,9 @@ create table REGISTRO_CIVIL_NACIMIENTO (
    GRUPO_SANGUINEO_ID   INT4                 not null,
    SEXO_ID              INT4                 not null,
    MUNICIPIO_ID         INT4                 not null,
-   REGISTRO_CIVIL_ID    INT4                 not null,
+   REGISTRO_CIVIL_ID    INT4                 not null unique,
    FACTOR_RH_ID         INT4                 not null,
-   NACIDO_VIVO          VARCHAR(12)          not null,
+   NACIDO_VIVO          VARCHAR(12)          not null unique,
    FECHA_DE_NACIMIENTO  DATE                 not null,
    NOTAS                VARCHAR(1000)        null,
    constraint PK_REGISTRO_CIVIL_NACIMIENTO primary key (REGISTRO_CIVIL_NACIMIENTO_ID)
@@ -453,7 +453,7 @@ comment on column REGISTRO_CIVIL_NACIMIENTO.NOTAS is
 /*==============================================================*/
 create table ROL_PERSONA_RCM (
    ROL_PERSONA_RCM_ID   SERIAL               not null,
-   ROL_PERSONA_RCM      VARCHAR(50)          not null,
+   ROL_PERSONA_RCM      VARCHAR(50)          not null unique,
    constraint PK_ROL_PERSONA_RCM primary key (ROL_PERSONA_RCM_ID)
 );
 
@@ -472,7 +472,7 @@ comment on column ROL_PERSONA_RCM.ROL_PERSONA_RCM is
 /*==============================================================*/
 create table ROL_PERSONA_RCN (
    ROL_PERSONA_RCN_ID   SERIAL               not null,
-   ROL_PERSONA_RCN      VARCHAR(50)          not null,
+   ROL_PERSONA_RCN      VARCHAR(50)          not null unique,
    constraint PK_ROL_PERSONA_RCN primary key (ROL_PERSONA_RCN_ID)
 );
 
@@ -491,7 +491,7 @@ comment on column ROL_PERSONA_RCN.ROL_PERSONA_RCN is
 /*==============================================================*/
 create table SEXO_RECIEN_NACIDO (
    SEXO_ID              SERIAL               not null,
-   SEXO                 VARCHAR(1)           not null,
+   SEXO                 VARCHAR(1)           not null unique,
    constraint PK_SEXO_RECIEN_NACIDO primary key (SEXO_ID)
 );
 
@@ -511,7 +511,7 @@ comment on column SEXO_RECIEN_NACIDO.SEXO is
 /*==============================================================*/
 create table TIPO_DOCUMENTO (
    TIPO_DOCUMENTO_ID    SERIAL               not null,
-   TIPO_DOCUMENTO       VARCHAR(50)          not null,
+   TIPO_DOCUMENTO       VARCHAR(50)          not null unique,
    constraint PK_TIPO_DOCUMENTO primary key (TIPO_DOCUMENTO_ID)
 );
 
@@ -531,7 +531,7 @@ comment on column TIPO_DOCUMENTO.TIPO_DOCUMENTO is
 /*==============================================================*/
 create table TIPO_DOCUMENTO_ACREDITACION (
    TIPO_DOCUMENTO_ACREDITACION_ID SERIAL               not null,
-   TIPO_DOCUMENTO_ACREDITACION VARCHAR(30)          not null,
+   TIPO_DOCUMENTO_ACREDITACION VARCHAR(30)          not null unique,
    constraint PK_TIPO_DOCUMENTO_ACREDITACION primary key (TIPO_DOCUMENTO_ACREDITACION_ID)
 );
 
@@ -552,7 +552,7 @@ comment on column TIPO_DOCUMENTO_ACREDITACION.TIPO_DOCUMENTO_ACREDITACION is
 /*==============================================================*/
 create table TIPO_MATRIMONIO (
    TIPO_MATRIMONIO_ID   SERIAL               not null,
-   TIPO_MATRIMINIO      VARCHAR(25)          not null,
+   TIPO_MATRIMINIO      VARCHAR(25)          not null unique,
    constraint PK_TIPO_MATRIMONIO primary key (TIPO_MATRIMONIO_ID)
 );
 
@@ -571,7 +571,7 @@ comment on column TIPO_MATRIMONIO.TIPO_MATRIMINIO is
 /*==============================================================*/
 create table TIPO_OFICINA_EXPEDICION (
    TIPO_OFICINA_EXPEDICION_ID SERIAL               not null,
-   TIPO_OFICINA_EXPEDICION VARCHAR(25)          not null,
+   TIPO_OFICINA_EXPEDICION VARCHAR(25)          not null unique,
    constraint PK_TIPO_OFICINA_EXPEDICION primary key (TIPO_OFICINA_EXPEDICION_ID)
 );
 
