@@ -243,7 +243,7 @@ create table PERSONA (
    NUIP                 INT4                 not null unique,
    NOMBRES              CHAR(40)             not null,
    APELLIDOS            CHAR(40)             not null,
-   constraint PK_PERSONA primary key (PERSONA_ID)
+   constraint PK_PERSONA primary key (PERSONA_ID),
    CONSTRAINT UQ_NUMERO_TIPO_DOCUMENTO UNIQUE (NUMERO_DOCUMENTO, TIPO_DOCUMENTO_ID)
 );
 
