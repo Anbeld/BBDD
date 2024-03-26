@@ -583,7 +583,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:GradientFillMode>65</a:GradientFillMode>
 <a:CustomPictureType>4</a:CustomPictureType>
 <a:CustomTextMode>1</a:CustomTextMode>
-<a:CustomPictureID>CFA8E329-EA8D-4B20-924D-C10C7A20A06C</a:CustomPictureID>
+<a:CustomPictureID>05EE9366-1B08-44DB-9CEF-1C75887D3AF9</a:CustomPictureID>
 <a:GradientEndColor>16777215</a:GradientEndColor>
 <a:KeepAspect>1</a:KeepAspect>
 <c:Object>
@@ -635,7 +635,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:CreationDate>1711406116</a:CreationDate>
 <a:Creator>secoe</a:Creator>
 <a:ModificationDate>1711410252</a:ModificationDate>
-<a:Modifier>secoe</a:Modifier>
+<a:Modifier>Deibyd</a:Modifier>
 <a:Location>file:///%[PRJ_ROOT_DIR]%/Proyecto1_BBDD_Fisico.pdm</a:Location>
 <a:Extension>pdm</a:Extension>
 <a:GlobalObjectID/>

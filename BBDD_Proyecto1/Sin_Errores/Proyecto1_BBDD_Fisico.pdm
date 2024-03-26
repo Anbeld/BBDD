@@ -5685,15 +5685,17 @@ DAT 1711406116</a:History>
 </o:Column>
 <o:Column Id="o257">
 <a:ObjectID>B90197E3-AA5C-4AFD-9463-D826C3CA33E1</a:ObjectID>
-<a:Name>Tipo_Matriminio</a:Name>
-<a:Code>TIPO_MATRIMINIO</a:Code>
+<a:Name>Tipo_Matrimonio</a:Name>
+<a:Code>TIPO_MATRIMONIO</a:Code>
 <a:CreationDate>1711406116</a:CreationDate>
 <a:Creator>secoe</a:Creator>
-<a:ModificationDate>1711406116</a:ModificationDate>
-<a:Modifier>secoe</a:Modifier>
+<a:ModificationDate>1711430388</a:ModificationDate>
+<a:Modifier>Deibyd</a:Modifier>
 <a:Comment>tipo de matrimonio por el que se llevo a cabo el proceso, puede ser civil o religioso.</a:Comment>
 <a:History>ORG {7BC9D54D-A60F-4A67-89D4-D5A2E0104EBC}
-DAT 1711406116</a:History>
+DAT 1711406116
+ATT NAME
+ATT CODE</a:History>
 <a:DataType>VARCHAR(25)</a:DataType>
 <a:Length>25</a:Length>
 <a:Column.Mandatory>1</a:Column.Mandatory>
@@ -7898,13 +7900,13 @@ ATT MAND</a:History>
 <a:Code>PROYECTO1_BBDD</a:Code>
 <a:CreationDate>1711406116</a:CreationDate>
 <a:Creator>secoe</a:Creator>
-<a:ModificationDate>1711411117</a:ModificationDate>
-<a:Modifier>secoe</a:Modifier>
+<a:ModificationDate>1711427075</a:ModificationDate>
+<a:Modifier>Deibyd</a:Modifier>
 <a:GlobalObjectID/>
 <a:TargetModelURL>file:///%[PRJ_ROOT_DIR]%/Proyecto1_BBDD.cdm</a:TargetModelURL>
 <a:TargetModelID>010F5477-7F85-4E10-AF02-5E7E8D127E76</a:TargetModelID>
 <a:TargetModelClassID>1E597170-9350-11D1-AB3C-0020AF71E433</a:TargetModelClassID>
-<a:TargetModelLastModificationDate>1711411117</a:TargetModelLastModificationDate>
+<a:TargetModelLastModificationDate>1711430419</a:TargetModelLastModificationDate>
 <c:SessionShortcuts>
 <o:Shortcut Ref="o3"/>
 </c:SessionShortcuts>

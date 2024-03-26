@@ -3437,13 +3437,18 @@ DAT 1711406116</a:History>
 <a:Code>INDICATIVO_SERIAL_RC</a:Code>
 <a:CreationDate>1711406116</a:CreationDate>
 <a:Creator>secoe</a:Creator>
-<a:ModificationDate>1711406116</a:ModificationDate>
-<a:Modifier>secoe</a:Modifier>
+<a:ModificationDate>1711426924</a:ModificationDate>
+<a:Modifier>Deibyd</a:Modifier>
 <a:Comment>identifica de manera unica al registro civil que se esta diligenciando. Esta compuesto por 12 dígitos numericos.</a:Comment>
 <a:History>ORG {828D9AAB-EE11-4A8A-ACF7-65FC37DBB485}
-DAT 1711406116</a:History>
-<a:DataType>INT4</a:DataType>
-<a:Length>4</a:Length>
+DAT 1711406116
+ATT DTTP
+ATT LVAL
+ATT HVAL</a:History>
+<a:LowValue>100000000000</a:LowValue>
+<a:HighValue>999999999999</a:HighValue>
+<a:DataType>INT8</a:DataType>
+<a:Length>8</a:Length>
 <a:Column.Mandatory>1</a:Column.Mandatory>
 <a:GlobalObjectID/>
 </o:Column>

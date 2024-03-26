@@ -558,7 +558,7 @@ comment on column TIPO_DOCUMENTO_ACREDITACION.TIPO_DOCUMENTO_ACREDITACION is
 /*==============================================================*/
 create table TIPO_MATRIMONIO (
    TIPO_MATRIMONIO_ID   SERIAL               not null,
-   TIPO_MATRIMINIO      VARCHAR(25)          not null unique,
+   TIPO_MATRIMONIO      VARCHAR(25)          not null unique,
    constraint PK_TIPO_MATRIMONIO primary key (TIPO_MATRIMONIO_ID)
 );
 
