@@ -10,7 +10,9 @@
 create table DEPARTAMENTO (
    DEPARTAMENTO_ID      SERIAL               not null,
    PAIS_ID              INT4                 not null,
-   NOMBRE_DEPARTAMENTO  CHAR(30)             not null unique,
+   NOMBRE_DEPARTAMENTO  CHAR(30)             not null,
+   CODIGO_DIVIPOLA      INT2                 not null unique
+      constraint CKC_CODIGO_DIVIPOLA_DEPARTAM check (CODIGO_DIVIPOLA between 1 and 99),
    constraint PK_DEPARTAMENTO primary key (DEPARTAMENTO_ID)
 );
 
@@ -25,6 +27,9 @@ comment on column DEPARTAMENTO.PAIS_ID is
 
 comment on column DEPARTAMENTO.NOMBRE_DEPARTAMENTO is
 'nombre del departamento.';
+
+comment on column DEPARTAMENTO.CODIGO_DIVIPOLA is
+'Codigo que identifica al departamento a nivel nacional';
 
 
 /*==============================================================*/
@@ -138,26 +143,32 @@ comment on column HIJO_LEGITIMADO.PERSONA_ID is
 
 
 /*==============================================================*/
-/* Table: MUNICIPO                                              */
+/* Table: MUNICIPIO                                              */
 /*==============================================================*/
-create table MUNICIPO (
+create table MUNICIPIO (
    MUNICIPIO_ID         SERIAL               not null,
    DEPARTAMENTO_ID      INT4                 not null,
-   MUNICIPIO            VARCHAR(50)          not null unique,
-   constraint PK_MUNICIPO primary key (MUNICIPIO_ID)
+   NOMBRE_MUNICIPIO     VARCHAR(50)          not null,
+   CODIGO_DIVIPOLA      INT2                 not null,
+      constraint UQ_CODIGO_DIVIPOLA_DEPARTAMENTO unique (CODIGO_DIVIPOLA, DEPARTAMENTO_ID),
+      constraint CKC_CODIGO_DIVIPOLA_MUNICIPIO check (CODIGO_DIVIPOLA between 1 and 999),
+   constraint PK_MUNICIPIO primary key (MUNICIPIO_ID)
 );
 
-comment on table MUNICIPO is
+comment on table MUNICIPIO is
 'Almacena los posibles valores de municipios en lo que puede ocurrir un evento.';
 
-comment on column MUNICIPO.MUNICIPIO_ID is
+comment on column MUNICIPIO.MUNICIPIO_ID is
 'identificador unico del municipio.';
 
-comment on column MUNICIPO.DEPARTAMENTO_ID is
+comment on column MUNICIPIO.DEPARTAMENTO_ID is
 'identificador unico del departamento.';
 
-comment on column MUNICIPO.MUNICIPIO is
+comment on column MUNICIPIO.NOMBRE_MUNICIPIO is
 'nombre del municipio';
+
+comment on column MUNICIPIO.CODIGO_DIVIPOLA is
+'Codigo que identifica al municipio a nivel nacional';
 
 
 /*==============================================================*/
@@ -622,14 +633,14 @@ alter table HIJO_LEGITIMADO
       references REGISTRO_CIVIL_MATRIMONIO (REGISTRO_CIVIL_MATRINOMIO_ID)
       on delete restrict on update restrict;
 
-alter table MUNICIPO
-   add constraint FK_MUNICIPO_MUNICIPIO_DEPARTAM foreign key (DEPARTAMENTO_ID)
+alter table MUNICIPIO
+   add constraint FK_MUNICIPIO_MUNICIPIO_DEPARTAM foreign key (DEPARTAMENTO_ID)
       references DEPARTAMENTO (DEPARTAMENTO_ID)
       on delete restrict on update restrict;
 
 alter table OFICINA_EXPEDICION
-   add constraint FK_OFICINA__MUNICIPIO_MUNICIPO foreign key (MUNICIPIO_ID)
-      references MUNICIPO (MUNICIPIO_ID)
+   add constraint FK_OFICINA__MUNICIPIO_MUNICIPIO foreign key (MUNICIPIO_ID)
+      references MUNICIPIO (MUNICIPIO_ID)
       on delete restrict on update restrict;
 
 alter table OFICINA_EXPEDICION
@@ -688,8 +699,8 @@ alter table REGISTRO_CIVIL_MATRIMONIO
       on delete restrict on update restrict;
 
 alter table REGISTRO_CIVIL_MATRIMONIO
-   add constraint FK_REGISTRO_REGISTRO__MUNICIPO foreign key (MUNICIPIO_ID)
-      references MUNICIPO (MUNICIPIO_ID)
+   add constraint FK_REGISTRO_REGISTRO__MUNICIPIO foreign key (MUNICIPIO_ID)
+      references MUNICIPIO (MUNICIPIO_ID)
       on delete restrict on update restrict;
 
 alter table REGISTRO_CIVIL_MATRIMONIO
@@ -718,8 +729,8 @@ alter table REGISTRO_CIVIL_NACIMIENTO
       on delete restrict on update restrict;
 
 alter table REGISTRO_CIVIL_NACIMIENTO
-   add constraint FK_REGISTRO_REGISTRO__MUNICIPO foreign key (MUNICIPIO_ID)
-      references MUNICIPO (MUNICIPIO_ID)
+   add constraint FK_REGISTRO_REGISTRO__MUNICIPIO foreign key (MUNICIPIO_ID)
+      references MUNICIPIO (MUNICIPIO_ID)
       on delete restrict on update restrict;
 
 alter table REGISTRO_CIVIL_NACIMIENTO

@@ -58,27 +58,28 @@ VALUES
 -- Inserción de datos para departamento
 INSERT INTO DEPARTAMENTO (
 PAIS_ID, 
-NOMBRE_DEPARTAMENTO)
+NOMBRE_DEPARTAMENTO,
+CODIGO_DIVIPOLA)
 VALUES 
-(1, 'Antioquia'),
-(1, 'Bogotá D.C.'),
-(1, 'Cundinamarca'),
-(1, 'Valle del Cauca');
-
+(1, 'Antioquia', 5),
+(1, 'Bogotá D.C.', 1),
+(1, 'Cundinamarca', 25),
+(1, 'Valle del Cauca', 76);
 
 
 -- Municipio:
 
 -- Inserción de datos para municipio
-INSERT INTO MUNICIPO (
+INSERT INTO MUNICIPIO (
 DEPARTAMENTO_ID, 
-MUNICIPIO)
+NOMBRE_MUNICIPIO,
+CODIGO_DIVIPOLA)
 VALUES 
-(1, 'Envigado'),
-(2, 'Bogotá'),
-(3, 'Soacha'),
-(4, 'Cali'),
-(4, 'Palmira');
+(1, 'Envigado', 266),
+(2, 'Bogotá', 1),
+(3, 'Soacha', 754),
+(4, 'Cali', 1),
+(4, 'Palmira', 520);
 
 
 
