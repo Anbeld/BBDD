@@ -219,3 +219,28 @@ VALUES
 (2, 2, 1002, 2002, 2, 'SI', '2022-11-25', NULL),
 (3, 1, 1003, 2003, 1, 'SI', '2024-02-15', 'Parto prematuro'),
 (4, 2, 1004, 2004, 2, 'SI', '2021-08-30', 'Peso bajo al nacer');
+
+-- Inserción datos para persona rcm
+INSERT INTO PERSONA_RCM (
+ROL_PERSONA_RCM_ID, 
+PERSONA_ID, 
+REGISTRO_CIVIL_MATRINOMIO_ID)
+VALUES
+-- Inserción diferentes personas con roles diferentes, en mismos o diferentes registros civiles
+(1, 1, 1), 
+(2, 2, 1),
+(1, 3, 2),
+(2, 4, 2);
+
+
+-- Inserción datos para persona rcn
+INSERT INTO PERSONA_RCN (
+ROL_PERSONA_RCN_ID, 
+REGISTRO_CIVIL_NACIMIENTO_ID, 
+PERSONA_ID)
+VALUES
+-- Inserción diferentes personas con roles diferentes, en mismos o diferentes registros civiles
+(1, 1, 1), 
+(2, 2, 1),
+(1, 3, 2),
+(2, 4, 2);
