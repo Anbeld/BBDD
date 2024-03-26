@@ -568,7 +568,7 @@ comment on table TIPO_MATRIMONIO is
 comment on column TIPO_MATRIMONIO.TIPO_MATRIMONIO_ID is
 'identificador unico de la entidad tipo matrinomio.';
 
-comment on column TIPO_MATRIMONIO.TIPO_MATRIMINIO is
+comment on column TIPO_MATRIMONIO.TIPO_MATRIMONIO is
 'tipo de matrimonio por el que se llevo a cabo el proceso, puede ser civil o religioso.';
 
 
