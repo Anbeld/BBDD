@@ -335,7 +335,8 @@ comment on column PERSONA_RCN.PERSONA_ID is
 create table REGISTRO_CIVIL (
    REGISTRO_CIVIL_ID    SERIAL               not null,
    OFICINA_EXPEDICION_ID INT4                 not null,
-   INDICATIVO_SERIAL_RC INT4                 not null unique,
+   INDICATIVO_SERIAL_RC INT8                 not null
+      constraint CKC_INDICATIVO_SERIAL_REGISTRO check (INDICATIVO_SERIAL_RC between 100000000000 and 999999999999),
    FECHA_EXPEDICION     DATE                 not null,
    constraint PK_REGISTRO_CIVIL primary key (REGISTRO_CIVIL_ID)
 );
