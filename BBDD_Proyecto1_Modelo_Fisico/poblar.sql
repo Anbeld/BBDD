@@ -314,7 +314,24 @@ ROL_PERSONA_RCN_ID,
 REGISTRO_CIVIL_NACIMIENTO_ID, 
 PERSONA_ID)
 VALUES
--- Inserción diferentes personas con roles diferentes, en mismos o diferentes registros civiles
+-- Inserción personas en registro_civil_id=1
 (1, 1, 1), 
-(2, 2, 1),
-(1, 3, 2);
+(2, 1, 2),
+(3, 1, 3),
+(4, 1, 4),
+(6, 1, 7),
+(7, 1, 7),
+-- Inserción personas en registro_civil_id=2
+(1, 2, 7), 
+(2, 2, 2),
+(4, 2, 2),
+(5, 2, 6),
+(6, 2, 8),
+(7, 2, 4),
+-- Inserción personas en registro_civil_id=3
+(1, 3, 10), 
+(2, 3, 8),
+(3, 3, 7),
+(4, 3, 1),
+(6, 3, 11),
+(7, 3, 11);
