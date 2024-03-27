@@ -264,10 +264,11 @@ INSERT INTO HIJO_LEGITIMADO (
 REGISTRO_CIVIL_MATRINOMIO_ID, 
 PERSONA_ID)
 VALUES
--- Ejemplo de la inserción de hijos en diferentes matrimonio
-(1, 5),
-(2, 6), 
-(3, 7); 
+-- Inserción hijos legitimados en registro_civil_matrimonio_id=1
+(1, 7),
+(1, 8),
+-- Inserción hijos legitimados en registro_civil_matrimonio_id=3
+(3, 1); 
 
 
 
@@ -298,11 +299,21 @@ ROL_PERSONA_RCM_ID,
 PERSONA_ID, 
 REGISTRO_CIVIL_MATRINOMIO_ID)
 VALUES
--- Inserción diferentes personas con roles diferentes, en mismos o diferentes registros civiles
-(1, 1, 1), 
-(2, 2, 1),
-(1, 3, 2),
-(2, 4, 2);
+-- Inserción personas en registro_civil_matrimonio_id=1
+(1, 1, 1),
+(1, 2, 1),
+(2, 3, 1),
+(3, 4, 1),
+-- Inserción personas en registro_civil_matrimonio_id=2
+(1, 5, 2),
+(1, 6, 2),
+(2, 7, 2),
+(3, 8, 2),
+-- Inserción personas en registro_civil_matrimonio_id=3
+(1, 9, 3),
+(1, 10, 3),
+(2, 11, 3),
+(3, 8, 3);
 
 
 
