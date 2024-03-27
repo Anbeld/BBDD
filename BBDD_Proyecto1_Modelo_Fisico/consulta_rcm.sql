@@ -63,12 +63,12 @@ LEFT JOIN persona_rcm prm_denun ON rm.registro_civil_matrinomio_id = prm_denun.r
 			AND prm_denun.rol_persona_rcm_id = 2
 LEFT JOIN persona p_denun ON prm_denun.persona_id = p_denun.persona_id
 LEFT JOIN tipo_documento td_denun ON p_denun.tipo_documento_id = td_denun.tipo_documento_id
-LEFT JOIN firma_persona f_denun ON p_denun.persona_id = f_denun.persona_id -- debe ser inner
+LEFT JOIN firma_persona f_denun ON p_denun.persona_id = f_denun.persona_id 
 -- Para los datos del funcionario que autoriza
 LEFT JOIN persona_rcm prm_func ON rm.registro_civil_matrinomio_id = prm_func.registro_civil_matrinomio_id
 			AND prm_func.rol_persona_rcm_id = 3
 LEFT JOIN persona p_func ON prm_func.persona_id = p_func.persona_id
-LEFT JOIN firma_persona f_func ON p_func.persona_id = f_func.persona_id -- debe ser inner
+LEFT JOIN firma_persona f_func ON p_func.persona_id = f_func.persona_id 
 -- Para los datos de la oficina de la escritura de capitulaciones matrimoniales
 LEFT JOIN oficina_expedicion o_capi ON rm.oficina_expedicion_id = o_capi.oficina_expedicion_id
 LEFT JOIN municipio m_capi ON o_capi.municipio_id = m_capi.municipio_id
